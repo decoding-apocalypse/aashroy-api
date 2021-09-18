@@ -8,7 +8,7 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const PORT = process.env.port || 8800;
+const PORT = process.env.PORT || 8800;
 
 // Routes imports
 const userRoutes = require("./routes/user");
