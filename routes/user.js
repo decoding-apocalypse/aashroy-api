@@ -17,6 +17,7 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/login", (req, res) => {
+  console.log(res.session);
   if (req.session.user) {
     res.json({ isLoggedIn: true, user: req.session.user });
   } else {
