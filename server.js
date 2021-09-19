@@ -13,7 +13,8 @@ const PORT = process.env.PORT || 8800;
 // Routes imports
 const userRoutes = require("./routes/user");
 const donationRoutes = require("./routes/donation");
-const homelessRoutes = require("./routes/homeless");
+const uploadRoutes = require("./routes/upload");
+const paymentRoutes = require("./routes/payment");
 
 mongoose
   .connect(
@@ -53,7 +54,8 @@ app.use(morgan("common"));
 
 app.use("/api/users", userRoutes);
 app.use("/api/donation", donationRoutes);
-app.use("/api/homeless", homelessRoutes);
+app.use("/api/donation/money/payment", paymentRoutes);
+app.use("/api/upload", uploadRoutes);
 
 app.listen(PORT, () => {
   console.log(`SERVER LISTENING ON PORT ${PORT}`);
