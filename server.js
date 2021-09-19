@@ -55,7 +55,7 @@ app.use(
     key: "userId",
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
       expires: 60 * 60 * 24,
     },
