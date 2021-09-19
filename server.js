@@ -8,6 +8,7 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const PORT = process.env.PORT || 8800;
 
 // Routes imports
@@ -16,10 +17,10 @@ const donationRoutes = require("./routes/donation");
 const uploadRoutes = require("./routes/upload");
 const paymentRoutes = require("./routes/payment");
 
+const dbUrl = `mongodb+srv://decodingApocalypse:${process.env.MONGODB_PASS}@aashroy.za9ce.mongodb.net/aashroy?retryWrites=true&w=majority`;
+
 mongoose
-  .connect(
-    `mongodb+srv://decodingApocalypse:${process.env.MONGODB_PASS}@aashroy.za9ce.mongodb.net/aashroy?retryWrites=true&w=majority`
-  )
+  .connect(dbUrl)
   .then(() => {
     console.log("Database connected");
   })
@@ -37,9 +38,20 @@ app.use(
     credentials: true,
   })
 );
-app.use(cookieParser());
+
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  secret: process.env.SESSION_SECRET,
+  touchAfter: 24 * 60 * 60,
+});
+
+store.on("error", (e) => {
+  console.log("SESSION STORE ERROR", e);
+});
+
 app.use(
   session({
+    store,
     key: "userId",
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -49,6 +61,7 @@ app.use(
     },
   })
 );
+app.use(cookieParser());
 app.use(helmet());
 app.use(morgan("common"));
 
