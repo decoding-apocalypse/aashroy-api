@@ -8,7 +8,6 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const MongoStore = require("connect-mongo")(session);
 const PORT = process.env.PORT || 8800;
 
 // Routes imports
@@ -39,19 +38,8 @@ app.use(
   })
 );
 
-const store = new MongoStore({
-  url: dbUrl,
-  secret: process.env.SESSION_SECRET,
-  touchAfter: 24 * 60 * 60,
-});
-
-store.on("error", (e) => {
-  console.log("SESSION STORE ERROR", e);
-});
-
 app.use(
   session({
-    store,
     key: "userId",
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -67,7 +55,7 @@ app.use(morgan("common"));
 
 app.use("/api/users", userRoutes);
 app.use("/api/donation", donationRoutes);
-app.use("/api/donation/money/payment", paymentRoutes);
+app.use("/api/donation/payment", paymentRoutes);
 app.use("/api/upload", uploadRoutes);
 
 app.listen(PORT, () => {
