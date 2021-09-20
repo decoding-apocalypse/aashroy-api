@@ -38,7 +38,7 @@ const UserSchema = new mongoose.Schema(
     },
     dateOfBirth: {
       type: Date,
-      default: () => new Date(2000, 0, 1),
+      default: null,
     },
     phoneNo: {
       type: Number,

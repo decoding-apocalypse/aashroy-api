@@ -8,7 +8,7 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const MongoStore = require("connect-mongo");
+const MongoStore = require("connect-mongo")(session);
 const PORT = process.env.PORT || 8800;
 
 // Routes imports
@@ -39,8 +39,8 @@ app.use(
   })
 );
 
-const store = MongoStore.create({
-  mongoUrl: dbUrl,
+const store = new MongoStore({
+  url: dbUrl,
   secret: process.env.SESSION_SECRET,
   touchAfter: 24 * 60 * 60,
 });
