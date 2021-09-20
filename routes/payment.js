@@ -34,6 +34,7 @@ router
         userId,
         amount,
         transactionID,
+        date: new Date(),
       });
       const donation = await newDonation.save();
       res.json({
