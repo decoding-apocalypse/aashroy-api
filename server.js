@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 8800;
 const userRoutes = require("./routes/user");
 const donationRoutes = require("./routes/donation");
 const uploadRoutes = require("./routes/upload");
+const feedbackRoutes = require("./routes/feedback");
 const paymentRoutes = require("./routes/payment");
 
 const dbUrl = `mongodb+srv://decodingApocalypse:${process.env.MONGODB_PASS}@aashroy.za9ce.mongodb.net/aashroy?retryWrites=true&w=majority`;
@@ -57,6 +58,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/donation", donationRoutes);
 app.use("/api/donation/payment", paymentRoutes);
 app.use("/api/upload", uploadRoutes);
+app.use("/api/feedback", feedbackRoutes);
 
 app.listen(PORT, () => {
   console.log(`SERVER LISTENING ON PORT ${PORT}`);

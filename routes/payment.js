@@ -37,9 +37,10 @@ router
         date: new Date(),
       });
       const donation = await newDonation.save();
+      // mail to user thanking for donating
       res.json({
         success: true,
-        message: "Amount must be greater than zero",
+        message: "Thank you for donating",
         data: donation,
       });
     } catch (err) {

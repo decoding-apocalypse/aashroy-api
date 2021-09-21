@@ -42,6 +42,7 @@ router.post("/", async (req, res) => {
       date: new Date(),
     });
     const uploadData = await newUploadUserData.save();
+    // mail to NGO using algorithm
     res.status(201).json(uploadData);
   } catch (error) {
     res.json(error);
