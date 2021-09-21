@@ -13,7 +13,13 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { userId, location, imgUrl: img, descrip: description } = req.body;
+  const {
+    userId,
+    location,
+    imgUrl: img,
+    descrip: description,
+    username,
+  } = req.body;
   if (!location) {
     res.status(400);
     return res.json({
@@ -29,6 +35,7 @@ router.post("/", async (req, res) => {
   try {
     const newUploadUserData = await new uploadUserData({
       userId,
+      username,
       location,
       img,
       description,

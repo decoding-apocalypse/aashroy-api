@@ -6,6 +6,10 @@ const UploadSchema = new mongoose.Schema({
     type: mongoose.SchemaTypes.ObjectId,
     required: true,
   },
+  username: {
+    type: String,
+    required: true,
+  },
   date: {
     type: Date,
     default: Date.now(),
