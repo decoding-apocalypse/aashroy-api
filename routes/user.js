@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
-const { OAuth2Client } = require("google-auth-library");
+const { OAuth2Client, UserRefreshClient } = require("google-auth-library");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -162,6 +162,46 @@ router.post("/google", async (req, res) => {
 router.post("/logout", (req, res) => {
   req.session.user = null;
   res.json({ successfull: true });
+});
+
+router.put("/:userId", async (req, res) => {
+  const { userId } = req.params;
+  const { name, profileImg, bio, dateOfBirth, phoneNo, address, password } =
+    req.body;
+
+  try {
+    const existingUser = await User.findById(userId);
+    const validPassword = password === existingUser.password;
+    if (!validPassword) {
+      return res.json({ message: "You aren't allowed to change the details" });
+    }
+    const user = await User.findByIdAndUpdate(
+      userId,
+      {
+        name,
+        profileImg,
+        bio,
+        dateOfBirth,
+        phoneNo,
+        address,
+      },
+      { new: true }
+    );
+    const updatedUser = await user.save();
+    res.json(updatedUser);
+  } catch (err) {
+    res.json({ message: "error" });
+  }
+});
+
+router.delete("/:userId", async (req, res) => {
+  const { userId } = req.params;
+  try {
+    await User.findByIdAndDelete(userId);
+    res.json({ message: "The user deleted successfully" });
+  } catch (err) {
+    res.json({ err });
+  }
 });
 
 module.exports = router;
