@@ -1,11 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const Donation = require("../models/Donations");
+const Donation = require("../models/Donation");
 
-router.get("/",async(req,res)=>{
-  
-})
-
+router.get("/", async (req, res) => {
+  try {
+    const allDonations = await Donation.find({});
+    res.json(allDonations);
+  } catch (error) {
+    res.json(error);
+  }
+});
 
 
 
@@ -14,3 +18,11 @@ router.get("/",async(req,res)=>{
 // get request for all donations
 
 module.exports = router;
+
+
+
+
+
+
+
+
