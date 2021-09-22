@@ -1,31 +1,21 @@
-const ngoData = require("./ngosData");
-
-const shortestDistanceNGO = (ngoslocation, userLocation) => {
+const shortestDistanceNGO = (ngosData, userLocation) => {
   //Logic
-  let index = 1;
+  let index = 0;
   let minDistance = Math.sqrt(
-    Math.pow(userLocation.lat - ngoslocation[0].location.lat, 2) +
-      Math.pow(userLocation.lng - ngoslocation[0].location.lng, 2)
+    Math.pow(userLocation.lat - ngosData[0].location.lat, 2) +
+      Math.pow(userLocation.lng - ngosData[0].location.lng, 2)
   );
-  for (let i = 1; i < ngoslocation.length; i++) {
+  for (let i = 1; i < ngosData.length; i++) {
     let distance = Math.sqrt(
-      Math.pow(userLocation.lat - ngoslocation[i].location.lat, 2) +
-        Math.pow(userLocation.lng - ngoslocation[i].location.lng, 2)
+      Math.pow(userLocation.lat - ngosData[i].location.lat, 2) +
+        Math.pow(userLocation.lng - ngosData[i].location.lng, 2)
     );
     if (distance < minDistance) {
       minDistance = distance;
-      index = i+1;
+      index = i;
     }
   }
-  console.log(`${minDistance} and ${index}`);
-  // return { minDistance, index };
+  return ngoslocation[index];
 };
 
-const userLocation = {
-  lat: 24.8333,
-  lng: 92.7789,
-}
-
-shortestDistanceNGO(ngoData.NGO, userLocation);
-
-// module.exports = shortestDistanceNGO;
+module.exports = shortestDistanceNGO;
