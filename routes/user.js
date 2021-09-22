@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
-const { OAuth2Client, UserRefreshClient } = require("google-auth-library");
+const { OAuth2Client } = require("google-auth-library");
+const mailer = require("../utils/mailer");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -59,6 +60,59 @@ router.post("/register", async (req, res) => {
       { expiresIn: "24h" }
     );
     res.status(201).json({ ...user.toJSON(), token });
+    const emailContent = {
+      subject: "New Signin @ Aashroy | Decoding Apocalypse",
+      html: `<div
+        style="
+          text-align: center;
+          font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+            'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+          background-color: #f1f1f1;
+          height: 100vh;
+          width: 100vw;
+          padding: 2rem;
+        "
+        >
+          <h1 style="text-decoration: underline">Aashroy | Decoding Apocalypse</h1>
+          <img
+            style="width: 80px"
+            src="https://aashroy.netlify.app/img/icons/fav-logo.png"
+            alt="Logo"
+          />
+          <div style="text-align: left">
+            <h3>Hey ${user.name},</h3>
+            <p>
+              Thank you for signing up with us. We work selflessly for the
+              betterment of the lower section of the society with the help of
+              generous persons like you.
+            </p>
+            <p>
+              Here are the small things you can do to contribute to the society.
+            </p>
+            <ul>
+              <li>
+                Whenever you see a homeless person. Just visit the
+                <a href="https://aashroy.netlify.app/upload">website</a> and upload
+                the image of the person along with the location in the map
+              </li>
+              <li>
+                If you happen to have extra stuffs (foods, clothes, medicines) in
+                your home you would like to donate, visit
+                <a href="https://aashroy.netlify.app/donation/stuffs">here</a> and
+                place your order for donation. The nearby NGO will pickup your order
+              </li>
+              <li>
+                You can donate some money
+                <a href="https://aashroy.netlify.app/donation/money">here</a> which
+                will be used in providing food and shelter to the needy ones.
+              </li>
+            </ul>
+            <h4>Thank you,</h4>
+            <h4>Team Aashroy</h4>
+          </div>
+        </div>`,
+    };
+    mailer(user.email, emailContent);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -146,6 +200,59 @@ router.post("/google", async (req, res) => {
               { expiresIn: "24h" }
             );
             res.status(201).json({ ...user.toJSON(), token });
+            const emailContent = {
+              subject: "New Signin @ Aashroy | Decoding Apocalypse",
+              html: `<div
+                style="
+                  text-align: center;
+                  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+                    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                  background-color: #f1f1f1;
+                  height: 100vh;
+                  width: 100vw;
+                  padding: 2rem;
+                "
+                >
+                  <h1 style="text-decoration: underline">Aashroy | Decoding Apocalypse</h1>
+                  <img
+                    style="width: 80px"
+                    src="https://aashroy.netlify.app/img/icons/fav-logo.png"
+                    alt="Logo"
+                  />
+                  <div style="text-align: left">
+                    <h3>Hey ${user.name},</h3>
+                    <p>
+                      Thank you for signing up with us. We work selflessly for the
+                      betterment of the lower section of the society with the help of
+                      generous persons like you.
+                    </p>
+                    <p>
+                      Here are the small things you can do to contribute to the society.
+                    </p>
+                    <ul>
+                      <li>
+                        Whenever you see a homeless person. Just visit the
+                        <a href="https://aashroy.netlify.app/upload">website</a> and upload
+                        the image of the person along with the location in the map
+                      </li>
+                      <li>
+                        If you happen to have extra stuffs (foods, clothes, medicines) in
+                        your home you would like to donate, visit
+                        <a href="https://aashroy.netlify.app/donation/stuffs">here</a> and
+                        place your order for donation. The nearby NGO will pickup your order
+                      </li>
+                      <li>
+                        You can donate some money
+                        <a href="https://aashroy.netlify.app/donation/money">here</a> which
+                        will be used in providing food and shelter to the needy ones.
+                      </li>
+                    </ul>
+                    <h4>Thank you,</h4>
+                    <h4>Team Aashroy</h4>
+                  </div>
+                </div>`,
+            };
+            mailer(user.email, emailContent);
           }
         } catch (err) {
           res.status(500).json(err);
