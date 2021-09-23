@@ -15,7 +15,7 @@ const shortestDistanceNGO = (ngosData, userLocation) => {
       index = i;
     }
   }
-  return ngoslocation[index];
+  return ngosData[index];
 };
 
 module.exports = shortestDistanceNGO;
