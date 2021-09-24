@@ -8,15 +8,6 @@ const jwt = require("jsonwebtoken");
 
 const client = new OAuth2Client(process.env.GOOGLE_OAUTH_CLIENT_ID);
 
-router.get("/", async (req, res) => {
-  try {
-    const users = await User.find({});
-    res.status(200).json(users);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
 router.get("/login", (req, res) => {
   console.log(req.session);
   if (req.session.user) {
