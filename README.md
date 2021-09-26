@@ -1,2 +1,2 @@
-# Server directory of Aakanksha Project
+# Server directory of Aashroy Project
 hello coders
