@@ -74,7 +74,7 @@ router
             donation helps us in helping thousands of people to get a better
             lifestyle and a home to call their own.
           </p>
-          <p>Here is your transaction details of your donation</p>
+          <p>Here is the transaction details of your donation</p>
           <div
             style="
               margin: auto;
