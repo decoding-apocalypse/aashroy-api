@@ -8,9 +8,11 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const path = require("path");
 const PORT = process.env.PORT || 8800;
 
 // Routes imports
+const homeRoutes = require("./routes/home");
 const userRoutes = require("./routes/user");
 const donationRoutes = require("./routes/donation");
 const uploadRoutes = require("./routes/upload");
@@ -31,6 +33,7 @@ mongoose
 // middlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
 app.use(
   cors({
     origin: true,
@@ -54,6 +57,10 @@ app.use(cookieParser());
 app.use(helmet());
 app.use(morgan("common"));
 
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+app.use("/", homeRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/donation", donationRoutes);
 app.use("/api/donation/payment", paymentRoutes);
