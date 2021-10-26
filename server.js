@@ -66,6 +66,9 @@ app.use("/api/donation", donationRoutes);
 app.use("/api/donation/payment", paymentRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/feedback", feedbackRoutes);
+app.use("*", (req, res) => {
+  res.render("error");
+});
 
 app.listen(PORT, () => {
   console.log(`SERVER LISTENING ON PORT ${PORT}`);
