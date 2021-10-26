@@ -17,7 +17,7 @@ const uploadRoutes = require("./routes/upload");
 const feedbackRoutes = require("./routes/feedback");
 const paymentRoutes = require("./routes/payment");
 
-const dbUrl = `mongodb+srv://decodingApocalypse:${process.env.MONGODB_PASS}@aashroy.za9ce.mongodb.net/aashroy?retryWrites=true&w=majority`;
+const dbUrl = process.env.MONGO_URI;
 
 mongoose
   .connect(dbUrl)
