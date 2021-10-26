@@ -33,6 +33,17 @@ A mapping system for the homeless people. A JEC Hackathon project. Made by the s
 
 # Our Project Idea
 
+The problem of homelessness has been a major issue in our country especially in Assam with about 1.7 billion homeless people in India and with the numbers still increasing exponentially.The problem of homelessness brings with it the hindrance of basic Human rights of proper living conditions and sanitation. These homeless people are further prone to crimes such as slavery, child trafficking, and crimes on women and children.Although a lot of projects have been undertaken  by ths government agencies but the problem still persists without any permanent solution in our hand.So, here Our team of Decoding Apocalypse has tried our level best to find a solution and come up with innovative technology to tackle the problem at hand.
+
+## Objectives of Aashroy
+
+Objective 1: To track the shelters of the homeless people through the web portal by inputs from the general public.
+Objective 2: To design a database of the homeless population with necessary fields.
+Objective 3: To provide the data to different NGOs & organizations working for upliftment of the homeless.
+Objective 4: To prevent crime and exploitation against this sector of people. An anonymous reporting mechanism for the users in the
+web application to report any crime or illegal activities against these people.
+Objective 5: To make the GUI interactive and to encourage voluntary donations (clothes/food/medicines) from the general public.
+
 # Running Locally
 
 By following the instructions you can get a copy of the project up and running on your local machine for development and testing purposes.
